@@ -2,9 +2,9 @@ package com.migscan.migscan;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.migscan.migscan.tables.kategori;
-import com.migscan.migscan.service.kategoriService;
-import com.migscan.migscan.repo.kategoriRepo;
+import com.migscan.migscan.tables.Category;
+import com.migscan.migscan.service.CategoryService;
+import com.migscan.migscan.repo.CategoryRepo;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,15 +18,6 @@ import java.util.Optional;
 
 @SpringBootTest
 class MigscanApplicationTests {
-
-	@Mock
-	private kategoriRepo kategoriRepository;
-
-	@InjectMocks
-	private kategoriService kategoriService;
-
-
-
 
 }
 

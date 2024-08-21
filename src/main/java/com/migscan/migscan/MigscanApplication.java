@@ -2,7 +2,7 @@ package com.migscan.migscan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.migscan.migscan.tables.kategori;
+import com.migscan.migscan.tables.Category;
 
 @SpringBootApplication
 public class MigscanApplication {
