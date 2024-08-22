@@ -1,29 +1,39 @@
 package com.migscan.migscan.tables;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
+@Entity (name = "product")
 @Getter
 @Setter
-@Table (name = "urun")
+@Table (name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "ad", nullable = false, unique = true )
-    private String ad;
+    @Column(nullable = false,length = 2)
+    private String category_code;
 
-    @Column(name = "kod", nullable = false, unique = true)
-    private String kod;
+    @Column(nullable = false,unique = true)
+    private String name;
 
-    @Column(name = "kategori_kodu", nullable = false)
-    private String kategori_kodu;
+    @Column(nullable = false,length = 5,unique = true)
+    private String code;
 
-    @Column(name = "marka", nullable = false)
-    private String marka;
+    @Column(nullable = false)
+    private String brand;
 
-    @Column(name = "birim", nullable = false)
-    private String birim;
+    @Column(nullable = false)
+    private String unit;
+
+    /*
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_code", insertable = false, updatable = false)
+    @JsonManagedReference
+    private Category category;
+    */
 }
