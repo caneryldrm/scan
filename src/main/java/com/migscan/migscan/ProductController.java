@@ -35,7 +35,10 @@ public class ProductController {
     public Mono<Product> getProductByIdexternal(@PathVariable String id){
         return productService.getProductFromOtherService(id);
     }
-
+    @GetMapping("/code/{code}")
+    public Optional<Product> getProductByCode(@PathVariable String code){
+        return productService.getProductByCode(code);
+    }
     @PostMapping
     public Product createProduct(@RequestBody Product product)
     {

@@ -35,6 +35,9 @@ public class ProductService {
     {
         return productRepo.save(product);
     }
+    public Optional<Product> getProductByCode(String code){
+        return productRepo.findAll().stream().filter(product -> product.getCode().equals(code)).findAny();
+    }
     public void deleteProductById(Long id)
     {
         productRepo.deleteById(id);

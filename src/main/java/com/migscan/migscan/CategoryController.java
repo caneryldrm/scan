@@ -3,6 +3,7 @@ package com.migscan.migscan;
 import com.migscan.migscan.tables.Category;
 import com.migscan.migscan.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +21,19 @@ public class CategoryController
     {
         return CategoryService.getAllCategories();
     }
+    @GetMapping("/terazi/{terazi}")
+    public Optional<Category> getCategoryByTerazi(@PathVariable String terazi){return CategoryService.getCategoryByTerazi(terazi);}
+    @GetMapping("/kasa/{kasa}")
+    public Optional<Category> getCategoryByKasa(@PathVariable String kasa){return CategoryService.getCategoryByKasa(kasa);}
+    @GetMapping("/product/{product}")
+    public Optional<Category> getCategoryByProduct(@PathVariable String product) {
+        return CategoryService.getCategoryByProduct(product);
+    }
 
-    @GetMapping("/{code}")
-    public Optional<Category> getCategoryByCode(@PathVariable String code)
+    @GetMapping("/{id}")
+    public Optional<Category> getCategoryByCode(@PathVariable Long id)
     {
-        return CategoryService.getCategoryByCode(code);
+        return CategoryService.getCategoryById(id);
     }
     @PostMapping
     public Category createCategory(@RequestBody Category category)
@@ -32,9 +41,9 @@ public class CategoryController
         return CategoryService.saveCategory(category);
     }
     @DeleteMapping("/{code}")
-    public void deleteCategoryByCode(@PathVariable String code)
+    public void deleteCategoryByCode(@PathVariable Long id)
     {
-        CategoryService.deleteCategoryByCode(code);
+        CategoryService.deleteCategoryById(id);
     }
 
 }

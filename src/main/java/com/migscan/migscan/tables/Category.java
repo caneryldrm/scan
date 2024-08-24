@@ -11,12 +11,18 @@ import java.util.Set;
 @Setter
 @Table(name = "category")
 public class Category {
+
     @Id
-    @Column(nullable = false,length = 2)
-    private String code;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false,length = 9)
+    private String productCode;
 
+    @Column(nullable = true,length = 8)
+    private String teraziCode;
+
+    @Column(nullable = true, length = 4)
+    private String kasaCode;
 
 }
