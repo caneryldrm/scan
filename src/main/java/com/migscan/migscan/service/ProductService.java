@@ -1,6 +1,6 @@
 package com.migscan.migscan.service;
 
-import com.migscan.migscan.repo.ProductRepo;
+
 import com.migscan.migscan.tables.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
+    /*
     private WebClient webClient;
     @Autowired
     private ProductRepo productRepo;
@@ -45,4 +46,5 @@ public class ProductService {
     public Mono<Product> getProductFromOtherService(String id){
         return webClient.get().uri("/api/Products/{id}" , id).retrieve().bodyToMono(Product.class);
     }
+    */
 }

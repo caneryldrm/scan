@@ -12,6 +12,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/service1/Products")
 public class ProductController {
+    /*
     @Autowired
     private ProductService productService;
     //private WebClient webClient;
@@ -49,4 +50,5 @@ public class ProductController {
     {
         productService.deleteProductById(id);
     }
+    */
 }

@@ -2,9 +2,11 @@ package com.migscan.migscan;
 
 import com.migscan.migscan.tables.Category;
 import com.migscan.migscan.service.CategoryService;
+import com.migscan.migscan.tables.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,8 @@ public class CategoryController
 {
     @Autowired
     CategoryService CategoryService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
     public List<Category> getAllCategories()
@@ -35,10 +39,19 @@ public class CategoryController
     {
         return CategoryService.getCategoryById(id);
     }
+    @GetMapping("/external/{id}")
+    public Mono<Product> getProductById(@PathVariable Long id){return CategoryService.getProductById(id);}
     @PostMapping
     public Category createCategory(@RequestBody Category category)
     {
-        return CategoryService.saveCategory(category);
+        Category savedCategory = CategoryService.saveCategory(category);
+        Long categoryId = savedCategory.getId();
+        return savedCategory;
+    }
+    @PostMapping("/barcodeGenerator/{category_code}")
+    public Category generateBarcodeForProduct(@RequestBody String category_code){
+        System.out.println(category_code);
+        return categoryService.createProductBarcode(category_code);
     }
     @DeleteMapping("/{code}")
     public void deleteCategoryByCode(@PathVariable Long id)

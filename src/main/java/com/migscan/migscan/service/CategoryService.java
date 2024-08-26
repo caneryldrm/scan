@@ -2,6 +2,7 @@ package com.migscan.migscan.service;
 
 import com.migscan.migscan.repo.CategoryRepo;
 import com.migscan.migscan.tables.Category;
+import com.migscan.migscan.tables.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -9,14 +10,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class CategoryService {
     private WebClient webClient;
     @Autowired
     private CategoryRepo categoryRepo;
+
+    private Random random = new Random();
 
     @Autowired
     public CategoryService(WebClient.Builder webClientBuilder, CategoryRepo categoryRepo) {
@@ -31,8 +36,32 @@ public class CategoryService {
      return categoryRepo.findById(id);
     }
 
+    public Mono<Product> getProductById(Long id) {
+        return webClient.get().uri("/api/Products/{id}", id).retrieve().bodyToMono(Product.class);
+    }
     public Optional<Category> getCategoryByKasa(String name) {
         return categoryRepo.findAll().stream().filter(category -> category.getKasaCode().equals(name)).findFirst();
+    }
+
+    public Category createProductBarcode(String category_code){
+        Category category = new Category();
+        category.setProductCode(generateRandomBarcode(category_code,9,2));
+        category.setKasaCode(generateRandomBarcode(category_code,4,2));
+        category.setTeraziCode(generateRandomBarcode(category_code,8,2));
+        saveCategory(category);
+        return category;
+    }
+
+    private String generateRandomBarcode(String code, int length,int startIndex)
+    {
+        String barcodeLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder barcode = new StringBuilder (code);
+        for(int i = startIndex; i < length; i++)
+        {
+            int index = random.nextInt(barcodeLetter.length());
+            barcode.append(barcodeLetter.charAt(index));
+        }
+        return barcode.toString();
     }
 
     public Optional<Category> getCategoryByTerazi(String name) {
