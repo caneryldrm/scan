@@ -1,22 +1,30 @@
 package com.migscan.migscan.service;
 
-import com.migscan.migscan.repo.CategoryRepo;
-import com.migscan.migscan.tables.Category;
-import com.migscan.migscan.tables.Product;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
-import javax.swing.text.html.Option;
+import com.migscan.migscan.repo.CategoryRepo;
+import com.migscan.migscan.model.Category;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryService {
+    private final CategoryRepo categoryRepository;
+
+    public List<Category> getCategory() {
+        return categoryRepository.findAll();
+    }
+    public Category createCategory(Category category) {
+        return categoryRepository.save(category);
+    }
+    public Optional<Category> getCategoryById(Long id) {
+        return categoryRepository.findById(id);
+    }
+
+    /*
     private WebClient webClient;
     @Autowired
     private CategoryRepo categoryRepo;
@@ -84,4 +92,5 @@ public class CategoryService {
     public Mono<Category> getcategoryFromOtherService(String id){
         return webClient.get().uri("/api/categories/{id}" , id).retrieve().bodyToMono(Category.class);
     }
+    */
 }
